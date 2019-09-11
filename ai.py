@@ -50,8 +50,8 @@ class DDPGAI(object):
             print(sid.sid + ": Test status: " + self.service.get_status(sid))
             print(vid.vid + ": Wait")
 
-            dynamic_stats_callback()
             sim_state = self.simulation.wait()
+            dynamic_stats_callback()
             if sim_state is SimStateResponse.SimState.RUNNING:
                 action, _ = self.model.predict(obs, deterministic=True)
                 # Clip Action to avoid out of bound errors
