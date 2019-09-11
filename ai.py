@@ -1,3 +1,5 @@
+from typing import Callable
+
 import gym
 import numpy as np
 import os
@@ -30,8 +32,8 @@ class DDPGAI(object):
         )
         self.model = DDPG.load(LEVEL_NAME.model())
 
-    def start(self, sid: SimulationID, vid: VehicleID) -> None:
-        from common.aiExchangeMessages_pb2 import SimStateResponse
+    def start(self, sid: SimulationID, vid: VehicleID, dynamic_stats_callback: Callable[[], None]) -> None:
+        from drivebuildclient.aiExchangeMessages_pb2 import SimStateResponse
 
         self.simulation.sid = sid
         self.simulation.vid = vid
@@ -47,6 +49,7 @@ class DDPGAI(object):
             print(sid.sid + ": Test status: " + self.service.get_status(sid))
             print(vid.vid + ": Wait")
 
+            dynamic_stats_callback()
             sim_state = self.simulation.wait()
             if sim_state is SimStateResponse.SimState.RUNNING:
                 action, _ = self.model.predict(obs, deterministic=True)
