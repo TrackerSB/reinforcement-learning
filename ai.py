@@ -5,6 +5,7 @@ import numpy as np
 import os
 from drivebuildclient.AIExchangeService import AIExchangeService
 from drivebuildclient.aiExchangeMessages_pb2 import SimulationID, VehicleID
+from lxml.etree import _Element, Element
 
 from training_gym.envs.drivebuild_sim import Simulation
 from algos import DDPG
@@ -67,6 +68,16 @@ class DDPGAI(object):
                 # clean up
                 self.env.reset()
                 break
+
+    @staticmethod
+    def add_data_requests(parent: _Element):
+        camera_node = Element("camera")
+        camera_node.set("id", "egoFrontCamera")
+        camera_node.set("width", "160")
+        camera_node.set("height", "120")
+        camera_node.set("direction", "FRONT")
+        camera_node.set("fov", "60")
+        parent.append(camera_node)
 
 
 class DDPGAILocal(object):
