@@ -66,7 +66,7 @@ class DDPGAI(object):
 
             else:
                 # clean up
-                self.env.reset()
+                # self.env.reset()  # FIXME This call requests data that may be not available anymore
                 break
 
     @staticmethod
