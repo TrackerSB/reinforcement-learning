@@ -51,8 +51,8 @@ class DDPGAI(object):
             print(vid.vid + ": Wait")
 
             sim_state = self.simulation.wait()
-            dynamic_stats_callback()
             if sim_state is SimStateResponse.SimState.RUNNING:
+                dynamic_stats_callback()
                 action, _ = self.model.predict(obs, deterministic=True)
                 # Clip Action to avoid out of bound errors
                 if isinstance(self.env.action_space, gym.spaces.Box):
