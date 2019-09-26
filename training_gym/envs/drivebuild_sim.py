@@ -37,11 +37,11 @@ class Simulation(object):
 
     def observe(self):
         request = DataRequest()
-        request.request_ids.extend(["egoFrontCamera"])
+        request.request_ids.extend(["egoFrontCamera_" + self.vid.vid])
         data = self.service.request_data(self.sid, self.vid, request)
-        camera_data = data.data["egoFrontCamera"]
+        camera_data = data.data["egoFrontCamera_" + self.vid.vid]
         if camera_data.HasField("camera"):
-            byte_im = data.data['egoFrontCamera'].camera.color
+            byte_im = data.data['egoFrontCamera_' + self.vid.vid].camera.color
             image = Image.open(io.BytesIO(byte_im))
             image = image.convert("RGB")
             image = np.array(image)

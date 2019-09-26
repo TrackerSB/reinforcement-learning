@@ -70,9 +70,9 @@ class DDPGAI(object):
                 break
 
     @staticmethod
-    def add_data_requests(parent: _Element):
+    def add_data_requests(parent: _Element, participant: str) -> None:
         camera_node = Element("camera")
-        camera_node.set("id", "egoFrontCamera")
+        camera_node.set("id", "egoFrontCamera_" + participant)
         camera_node.set("width", "160")
         camera_node.set("height", "120")
         camera_node.set("direction", "FRONT")
