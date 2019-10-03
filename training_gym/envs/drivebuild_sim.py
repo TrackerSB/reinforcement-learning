@@ -65,5 +65,5 @@ class Simulation(object):
     def reset(self):
         pass
 
-    def wait(self):
-        return self.service.wait_for_simulator_request(self.sid, self.vid)
+    def wait(self, vid):
+        return self.service.wait_for_simulator_request(self.sid, vid)

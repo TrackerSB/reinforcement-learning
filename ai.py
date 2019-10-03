@@ -42,7 +42,7 @@ class DDPGAI(object):
         running_reward = 0.0
         ep_len = 0
 
-        sim_state = self.simulation.wait()
+        sim_state = self.simulation.wait(vid)
         if sim_state is SimStateResponse.SimState.RUNNING:
             obs = self.env.reset()
 
@@ -50,7 +50,7 @@ class DDPGAI(object):
             print(sid.sid + ": Test status: " + self.service.get_status(sid))
             print(vid.vid + ": Wait")
 
-            sim_state = self.simulation.wait()
+            sim_state = self.simulation.wait(vid)
             if sim_state is SimStateResponse.SimState.RUNNING:
                 dynamic_stats_callback()
                 action, _ = self.model.predict(obs, deterministic=True)
