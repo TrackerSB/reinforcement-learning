@@ -2,7 +2,6 @@ import io
 import numpy as np
 from PIL import Image
 from drivebuildclient.AIExchangeService import AIExchangeService
-from drivebuildclient.common import eprint
 
 from config import CRASH_SPEED_WEIGHT, REWARD_CRASH, ROI
 from drivebuildclient.aiExchangeMessages_pb2 import Control, DataRequest
@@ -53,7 +52,7 @@ class Simulation(object):
             # Convert to BGR
             state = image[:, :, ::-1]
         else:
-            eprint("Request for egoFrontCamera returned an error: " + camera_data.error.message)
+            print("Request for egoFrontCamera returned an error: " + camera_data.error.message)
             state = None  # FIXME Is it allowed to be None?
 
         reward = self._reward()
